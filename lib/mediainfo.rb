@@ -213,6 +213,10 @@ class Mediainfo
     mediainfo_attr_reader :overall_bit_rate
     mediainfo_attr_reader :writing_application
     mediainfo_attr_reader :writing_library
+
+    mediainfo_attr_reader :internet_media_type
+    alias_method :mime_type, :internet_media_type
+
     
     mediainfo_date_reader :mastered_date
     mediainfo_date_reader :tagged_date
@@ -256,6 +260,9 @@ class Mediainfo
     mediainfo_attr_reader :color_primaries
     mediainfo_attr_reader :transfer_characteristics
     mediainfo_attr_reader :matrix_coefficients
+
+    mediainfo_attr_reader :internet_media_type
+    alias_method :mime_type, :internet_media_type
 
     mediainfo_attr_reader :codec_id, "Codec ID"
     mediainfo_attr_reader :codec_info, "Codec ID/Info"
@@ -462,7 +469,7 @@ class Mediainfo
   
   private
   def mediainfo!
-    @last_command = "#{path} #{@escaped_full_filename} --Output=XML"
+    @last_command = "#{path} #{@escaped_full_filename} --Output=XML --Full"
     run_command!
   end
   

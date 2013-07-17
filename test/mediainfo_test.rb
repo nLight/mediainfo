@@ -11,6 +11,8 @@ class MediainfoTest < ActiveSupport::TestCase
     :overall_bit_rate,
     :writing_application,
     :writing_library,
+    :internet_media_type,
+    :mime_type,
     
     :mastered_date,
     :tagged_date,
@@ -29,6 +31,8 @@ class MediainfoTest < ActiveSupport::TestCase
     :video_resolution,
     :video_colorimetry,
     :video_standard,
+    :video_internet_media_type,
+    :video_mime_type,
     :video_format,
     :video_format_info,
     :video_format_profile,
@@ -113,7 +117,7 @@ class MediainfoTest < ActiveSupport::TestCase
   test "retains last system command generated" do
     p = File.expand_path "./test/fixtures/dinner.3g2.xml"
     m = Mediainfo.new p
-    assert_equal "#{Mediainfo.path} \"#{p}\" --Output=XML", m.last_command
+    assert_equal "#{Mediainfo.path} \"#{p}\" --Output=XML --Full", m.last_command
   end
   
   test "allows customization of path to mediainfo binary" do
@@ -122,7 +126,7 @@ class MediainfoTest < ActiveSupport::TestCase
     assert_equal Mediainfo.default_mediainfo_path, Mediainfo.path
 
     m = Mediainfo.new "/dev/null"
-    assert_equal "#{Mediainfo.default_mediainfo_path} \"/dev/null\" --Output=XML", m.last_command
+    assert_equal "#{Mediainfo.default_mediainfo_path} \"/dev/null\" --Output=XML --Full", m.last_command
 
     Mediainfo.any_instance.stubs(:mediainfo_version).returns("0.7.25")
     
@@ -130,7 +134,7 @@ class MediainfoTest < ActiveSupport::TestCase
     assert_equal "/opt/local/bin/mediainfo", Mediainfo.path
     
     m = Mediainfo.new "/dev/null"
-    assert_equal "/opt/local/bin/mediainfo \"/dev/null\" --Output=XML", m.last_command
+    assert_equal "/opt/local/bin/mediainfo \"/dev/null\" --Output=XML --Full", m.last_command
   end
   
   test "can be initialized with a raw response" do
