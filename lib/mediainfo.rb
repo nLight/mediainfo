@@ -317,11 +317,14 @@ class Mediainfo
     end
     alias_method :sampling_rate, :sample_rate
 
+
     mediainfo_attr_reader :stream_size
     mediainfo_attr_reader :bit_rate
     mediainfo_attr_reader :bit_rate_mode
     mediainfo_attr_reader :interleave_duration, "Interleave, duration"
-
+    mediainfo_attr_reader :internet_media_type
+    alias_method :mime_type, :internet_media_type
+    
     mediainfo_int_reader :resolution
     alias_method :sample_bit_depth, :resolution
 

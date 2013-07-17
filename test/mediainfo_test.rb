@@ -65,6 +65,8 @@ class MediainfoTest < ActiveSupport::TestCase
     :audio_bit_rate,
     :audio_bit_rate_mode,
     :audio_interleave_duration,
+    :audio_internet_media_type,
+    :audio_mime_type,
     :audio_resolution,
     :audio_format,
     :audio_format_info,
