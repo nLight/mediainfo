@@ -385,7 +385,9 @@ class Mediainfo
   
   ###
   
-  def initialize(full_filename = nil)
+  def initialize(full_filename = nil, options={})
+    @extra_options = options
+
     unless mediainfo_version
       raise UnknownVersionError,
         "Unable to determine mediainfo version. " +
@@ -472,7 +474,15 @@ class Mediainfo
   
   private
   def mediainfo!
-    @last_command = "#{path} #{@escaped_full_filename} --Output=XML --Full"
+    options = {"Output" => "XML", "Full" => ""}.merge(@extra_options)
+    options = options.map do |k, v|
+      if v != ""
+        "--#{k}=#{v}"
+      else
+        "--#{k}"
+      end
+    end.join(" ")
+    @last_command = "#{path} #{@escaped_full_filename} #{options}"
     run_command!
   end
   
